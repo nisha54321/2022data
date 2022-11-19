@@ -1,0 +1,46 @@
+Cesium.Ion.defaultAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJmOTQ1OWNhZS00NDY3LTQ3ZGItYTY5Ni03OTliOTgxMWVjYzIiLCJpZCI6NDAzMjIsImlhdCI6MTYwODYyNzkxNX0.yVW1tez7XbulKavYnEIswlgREug_3JxTj1ZXOuwKm2A";
+
+//dem
+var xaterrain = new Cesium.CesiumTerrainProvider({
+        url: 'https://upspatrika.ncog.gov.in/Terrain/tilesets/test/'
+        });
+
+var viewer = new Cesium.Viewer("cesiumContainer", {
+  infoBox: false,
+  selectionIndicator: false,
+  shadows: true,
+  terrainProvider : xaterrain
+});
+viewer.scene.globe.depthTestAgainstTerrain = true; 
+// let bingmapsprovider = new Cesium.BingMapsImageryProvider({  
+//         url : 'https://dev.virtualearth.net',  
+//         key: 'Aq9ree9-nRDdhxQdNMMIyiiuHBRUz20oH5QAk_qd6GCtlf3-jVr6lq0feZw6Xqa9'
+                        
+//         });    
+//         viewer.imageryLayers.addImageryProvider(bingmapsprovider); 
+
+        // var options = {};
+
+        // options.enableCompass= true;
+        // options.enableZoomControls= true;
+        // options.enableDistanceLegend= true;
+        // options.enableCompassOuterRing= true;
+        // options.defaultResetView=new Cesium.Cartographic.fromDegrees(78.3352765625, 21.173860625, 6900000);
+        // viewer.extend(Cesium.viewerCesiumNavigationMixin, options);
+var myLayer=new Cesium.WebMapServiceImageryProvider({ 
+        url: 'http://localhost:8080/geoserver/bisag/wms', 
+                parameters : { 
+                    transparent : 'true',  
+                    tiled : 'true',  
+                    format : 'image/png',  
+                    tileWidth : 1024,  
+                    tileHeight : 1024,  
+                    maximumLevel : 3,  
+                    enablePickFeatures : false  
+
+
+                },  
+                layers:'bisag:40_R_DEM1'  
+    });
+    
+    viewer.imageryLayers.addImageryProvider(myLayer);

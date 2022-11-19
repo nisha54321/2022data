@@ -1,0 +1,6 @@
+/home/bisag/Downloads/OTB-7.3.0-Linux64/bin
+
+/usr/lib/x86_64-linux-gnu/otb/applications
+
+chmod +x OTB-7.3.0-Linux64.run
+./OTB-7.3.0-Linux64.run

@@ -1,0 +1,13 @@
+CREATE EXTENSION pgrouting CASCADE;
+CREATE EXTENSION postgis;
+
+SELECT * FROM pgr_dijkstra('
+SELECT gid AS id, start_id::int4 AS source, end_id::int4 AS target, 
+shape_leng::float8 AS cost FROM network',
+1, 5, false);
+
+select geom from network where gid in (46794, 46793, 46743, 46741)
+
+
+select geom from network where gid in  (36596, 36657, 36936, 36935, 36976, 36975, 36974, 36674, 36625, 36574, 36573, 35188, 35186, -1)
+

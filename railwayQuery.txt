@@ -1,0 +1,63 @@
+select stationname ,date,*
+from inspection where TO_DATE(date,'DD-MM-YYYY') in
+(select max(TO_DATE(date,'DD-MM-YYYY')) as date from inspection WHERE  date != 'not fetch' AND date is not null and stationname is not null 
+ group by stationname) and stationname is not null and date != 'not fetch'
+ 
+ 
+ ####FIND MAXIMUM DATES:
+select max(TO_DATE(date,'YYYY-MM-DD')) FROM public.inspection
+WHERE stationname = 'VTA'
+
+
+ UPDATE inspection  
+SET color_code='yellow'  
+WHERE recurrence BETWEEN '3' AND '6';
+
+UPDATE inspection  
+SET color_code='red'  
+WHERE recurrence >'4'
+
+ALTER TABLE inspection
+ADD COLUMN clean text;
+
+update inspection set assets = 'Depot' where id in 
+(SELECT * FROM public.inspection WHERE upper(assets) like upper('dep%'))
+
+SELECT * FROM public.inspection
+WHERE stationname = 'MSH'
+ORDER BY id DESC 
+
+DELETE FROM public.inspection
+	WHERE stationname = 'MSH';
+	
+select distinct stationname from inspection_view group by stationname
+
+ SELECT c.unique_id,
+    c.id,
+    c.stationcode,
+    c.color,
+    a.geom,
+    a.stationco,
+    c.recurrence,
+    c.asset,
+    c.assetname,
+    c.date,
+    c.nameofofficer,
+    c.keywords
+   FROM api_data c,
+    ir_station_master_meity_rtms a
+  WHERE c.stationcode::text = a.stationco::text;
+  
+ SELECT DISTINCT stationname FROM public.inspection 
+SELECT recurrence,count1,color_code,* FROM public.inspection where stationname like 'NHM' ORDER BY date DESC
+select recurrence,* from ir_station_master_apidata where stationco like 'ADI'
+SELECT DISTINCT stationname FROM public.inspection 
+select recurrence,* from ir_station_master_apidata where stationco like 'ADI'
+
+ALTER TABLE inspection ADD COLUMN recurrence1 integer;
+########3copy one col to another
+UPDATE table SET columnB = columnA;
+
+UPDATE inspection SET recurrence1 = recurrence
+
+update inspection set recurrence1 = recurrence::INTEGER

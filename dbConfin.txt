@@ -1,0 +1,79 @@
+### config.py ###
+
+# Scheme: "postgres+psycopg2://<USERNAME>:<PASSWORD>@<IP_ADDRESS>:<PORT>/<DATABASE_NAME>"
+
+DATABASE_URI = 'postgres+psycopg2://postgres:password@localhost:5432/books'
+*************************
+
+We need to define configurations for deploying environments. create a file named config.py with below code.
+
+
+import os
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+class Config(object):
+    DEBUG = False
+    TESTING = False
+    CSRF_ENABLED = True
+    SECRET_KEY = 'this-really-needs-to-be-changed'
+    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+
+
+class ProductionConfig(Config):
+    DEBUG = False
+
+
+class StagingConfig(Config):
+    DEVELOPMENT = True
+    DEBUG = True
+
+
+class DevelopmentConfig(Config):
+    DEVELOPMENT = True
+    DEBUG = True
+
+
+class TestingConfig(Config):
+    TESTING = True
+    
+  ******************
+  According to created configurations set “APP_SETTINGS” environment variable by running this in the terminal
+export APP_SETTINGS="config.DevelopmentConfig"  
+************
+
+It should be returned when you execute echo $DATABASE_URL in terminal.
+So, now our python application can get database URL for the application from the environment variable which is “DATABASE_URL”
+also put these 2 environment variables into a file called .env
+
+----->>>
+export APP_SETTINGS="config.DevelopmentConfig"
+export DATABASE_URL="postgresql://localhost/books_store"
+    
+ ***************************
+ V Flask-Migrate into our app.py and create a model that will define the data about our cars that we will store:
+ 
+   
+    # Previous imports remain...
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/cars_api"
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
+class CarsModel(db.Model):
+    __tablename__ = 'cars'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String())
+    model = db.Column(db.String())
+    doors = db.Column(db.Integer())
+
+    def __init__(self, name, model, doors):
+        self.name = name
+        self.model = model
+        self.doors = doors
+
+    def __repr__(self):
+        return f"<Car {self.name}>"

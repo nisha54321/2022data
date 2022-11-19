@@ -1,0 +1,71 @@
+-- View: public.ir_station_master_apidata
+
+-- DROP VIEW public.ir_station_master_apidata;
+
+CREATE OR REPLACE VIEW public.ir_station_master_apidata
+ AS
+ SELECT t2.id,
+    'uid_id_20220421173812'::text AS unique_id,
+    t2.assets AS asset,
+    t2.asset_name AS assetname,
+    t2.name AS nameofofficer,
+    t2.stationname AS stationcode,
+    t2.stationname AS stationco,
+    t2.filename,
+    t2.statement AS keywords,
+    t2.recurrence,
+    t2.def_keyword,
+    t2.date1 AS date,
+    t2.color_code AS color,
+    ir_station_master_meity_rtms.geom
+   FROM ( SELECT inspection.id,
+            inspection.date,
+            inspection.assets,
+            inspection.asset_name,
+            inspection.name,
+            inspection.stationname,
+            inspection.filename,
+            inspection.statement,
+            inspection.count1 AS recurrence,
+            inspection.def_keyword,
+            inspection.date1,
+            inspection.color_code
+           FROM inspection,
+            ( SELECT max(a.date1) AS d1,
+                    a.stationname
+                   FROM ( SELECT inspection_1.id,
+                            inspection_1.date,
+                            inspection_1.assets,
+                            inspection_1.asset_name,
+                            inspection_1.name,
+                            inspection_1.stationname,
+                            inspection_1.filename,
+                            inspection_1.statement,
+                            inspection_1.count1 AS recurrence,
+                            inspection_1.def_keyword,
+                            inspection_1.date1,
+                            inspection_1.color_code
+                           FROM inspection inspection_1
+                        UNION
+                         SELECT inspection_hindi.id,
+                            inspection_hindi.date,
+                            inspection_hindi.assets,
+                            inspection_hindi.asset_name,
+                            inspection_hindi.name,
+                            inspection_hindi.stationname,
+                            inspection_hindi.filename,
+                            inspection_hindi.statement,
+                            inspection_hindi.recurrence,
+                            inspection_hindi.def_keyword,
+                            inspection_hindi.date1,
+                            inspection_hindi.color_code
+                           FROM inspection_hindi) a
+                  GROUP BY a.stationname) t1
+          WHERE inspection.date1 = t1.d1 AND inspection.stationname = t1.stationname) t2,
+    ir_station_master_meity_rtms
+  WHERE ir_station_master_meity_rtms.stationco::text = t2.stationname;
+
+ALTER TABLE public.ir_station_master_apidata
+    OWNER TO postgres;
+
+

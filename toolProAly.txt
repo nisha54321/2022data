@@ -1,0 +1,20 @@
+---------------- ALGORITHM FOR -> EXTRACT LAYER EXTEND (boundry)
+from qgis import processing
+processing.run("qgis:polygonfromlayerextent", {'INPUT':'/home/user/Desktop/pyqgis/slaveTile/1/Slave_2_2.tif',
+                'ROUND_TO':0,
+                'OUTPUT':'/home/user/Desktop/pyqgis/slaveTile/boundry/extentS22.gpkg'})
+
+
+----------------- ALGORITHM FOR -> BUFFER
+from qgis import processing
+processing.run("native:buffer", {'INPUT':'/home/user/Desktop/pyqgis/slaveTile/boundry/extentS22.gpkg',
+                'DISTANCE':0.0005,
+                'SEGMENTS':5,
+                'END_CAP_STYLE':0,
+                'JOIN_STYLE':0,
+                'MITER_LIMIT':2,
+                'DISSOLVE':False,
+                'OUTPUT':'/home/user/Desktop/pyqgis/slaveTile/buffer/bufferS22.gpkg'})
+
+ /home/user/.local/share/QGIS/QGIS3/profiles/default/python/plugins 
+ /home/user/.local/share/QGIS/QGIS3/profiles/default/python/plugins

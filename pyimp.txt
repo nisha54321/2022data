@@ -1,0 +1,18 @@
+imp note and commands
+ 
+remove pdadmin 
+sudo apt autoremove pgadmin4
+ at a time all dependency install in .txt file
+$ python -m pip freeze > requirements.txt
+p3 install -r requirements.txt
+
+source venv/bin/activate
+
+
+terminal:::
+pip3 install jupyter
+jupyter notebook;
+
+Jupyter Notebook open in your browser, you may have noticed that the URL for the dashboard is something like http://localhost:8888/tree.
+
+ALPHAGO is an artificial intelligence (AI) agent that is specialized to play Go, a Chinese strategy board game, against human competitors. AlphaGo is a Google DeepMind project. The ability to create a learning algorithm that can beat a human player at strategic games is a measure of AI development.

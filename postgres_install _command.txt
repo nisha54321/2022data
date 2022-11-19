@@ -1,0 +1,103 @@
+sudo apt update
+
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+
+sudo apt-get update
+
+sudo apt-get -y install postgresql-12 postgresql-client-12 libpq-dev postgresql-server-dev-12 pgadmin4
+
+sudo apt-get install postgresql postgresql-contrib
+
+Now create a superuser for PostgreSQL
+sudo -u postgres createuser --superuser name_of_user
+
+sudo su postgres
+psql
+ALTER USER postgres WITH PASSWORD 'my_password';
+bisag123
+
+database create
+ psql
+# create database mydb;
+CREATE DATABASE
+
+add a DATABASE_URL variable. Run this in the terminal:
+export DATABASE_URL="postgresql:///mydb"
+
+export APP_SETTINGS="config.DevelopmentConfig"
+export DATABASE_URL="postgresql://postgres:bisag123@localhost/mydb"
+
+In order to run the migrations initialize Alembic:
+$ python manage.py db init
+
+
+
+Let’s create our first migration by running the migrate command.
+$ python manage.py db migrate
+
+Now we’ll apply the upgrades to the database using the db upgrade command:
+$ python manage.py db upgrade
+
+The database is now ready for us to use in our app:
+$ psql
+  connect database
+# \c mydb
+
+list of relation
+# \dt
+table use
+3 \d 
+
+drop table
+drop table alembic_version;
+
+config.py 
+DATABASE_URI = 'postgres+psycopg2://postgres:password@localhost:5432/books'
+
+Also, as now we have created manage.py now we can run our server locally by,
+python manage.py runserver
+
+And this will automatically refresh the local server with code changes.
+
+we have installed all the required packages for this simple project. We need to specify these packages in requirements.txt to identify and install when we push our project to Heroku. It can be simply done by,
+		pip freeze > requirements.txt
+		
+export POSTGRES_URL="127.0.0.1:5432"
+export POSTGRES_USER="postgres"
+export POSTGRES_PW="dbpw"
+export POSTGRES_DB="test"
+
+
+Connecting to Postgres with Python
+#DATABASE_URI = 'postgres+psycopg2://postgres:bisag123@localhost:5432/mydb'
+
+#connection postgresql with flask
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:postgres@localhost/postgres'
+	
+#========================================sslmode add
+postgresql://localhost:5432/reps?sslmode=require
+
+#========================================postgresql service restart
+$service postgresql restart
+
+
+remove pdadmin 
+sudo apt autoremove pgadmin4
+
+sudo apt-get update
+
+ sudo apt-get -y install postgresql postgresql-contrib
+
+ sudo apt-get install pgadmin4 pgadmin4-apache2 -y
+ 
+sudo apt-get install pgadmin4
+
+
+"sudo apt-get update"
+"sudo apt-get upgrade"
+"sudo apt-get install postgresql-9.4 pgadmin3"
+
+#Then os.makedirs() method will create all unavailable/missing directories in the specified path.
+

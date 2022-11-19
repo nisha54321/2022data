@@ -1,0 +1,7 @@
+http://192.168.13.6:3052/?filepath=/home/bisag/Music/Fetch_Keywords_From_Excel/assetWise/inspection_english/depot/1vta/1.pdf
+http://192.168.12.9:3011/?filepath=/home/bisag/Music/Fetch_Keywords_From_Excel/pdf/english/ADME-I-07.01.22.PDF
+example.com?arg1=value1&arg2=value2
+http://192.168.12.9:3000/?lines_path=/home/bisag/narmadaAnalysis/checkdam_volume/data12/lines.txt&line_path=/home/bisag/narmadaAnalysis/checkdam_volume/data12/line.txt&point_path=/home/bisag/narmadaAnalysis/checkdam_volume/data12/point.txt
+select *from  public.pdfdata where statement like '%track%'
+DELETE FROM inspection WHERE id='3';
+

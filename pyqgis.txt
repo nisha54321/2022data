@@ -1,0 +1,138 @@
+--------for using gdal segmentation of raster file in gdal retilee command line
+-------- computer -usr-bin-qgis terminal run gdal_retile.py command
+
+gdal_retile.py -v -r bilinear -levels 1 -ps 300 250 -co "TILED=YES" -co "COMPRESS=LZW" -targetDir  /home/user/Desktop/output /home/user/Desktop/image/Master.tif
+
+
+-----------------extract layer extend algorithm
+
+from qgis import processing
+processing.run("qgis:polygonfromlayerextent", {'INPUT': '/home/user/Desktop/Master.tif',
+              'DISTANCE': 0.02,
+              'SEGMENTS': 5,
+              'DISSOLVE': True,
+              'END_CAP_STYLE': 0,
+              'JOIN_STYLE': 0,
+              'MITER_LIMIT': 10,
+              'OUTPUT': '/home/user/Desktop/boundry'})
+              
+              ----Processing algorithm…
+Algorithm 'Clip raster by extent' starting…
+Input parameters:
+{ 'DATA_TYPE' : 0, 'EXTRA' : '', 'INPUT' : '/home/user/Desktop/image/Master.tif', 'NODATA' : None, 'OPTIONS' : '', 'OUTPUT' : '/home/user/Desktop/buffer/extent.tif', 'PROJWIN' : '70.30356452966492,70.30696018773135,24.67873912333314,24.680648535923677 [EPSG:4326]' }
+              
+gdal_translate -projwin 70.30356452966492 24.680648535923677 70.30696018773135 24.67873912333314 -of GTiff /home/user/Desktop/image/Master.tif /home/user/Desktop/buffer/extent.tif
+ 
+ #-------------------BUFFER VECTOR COMMANDS
+ 
+ogr2ogr /home/user/Desktop/boundry/how.gpkg /home/user/Desktop/boundry/boundry.gpkg -dialect sqlite -sql "SELECT ST_Buffer(geometry, 0.02) AS geometry,* FROM \"boundry\"" -f "GPKG"
+
+--------------------raster to vector convert
+gdal_polygonize.py /home/user/Desktop/Master.tif /home/user/Desktop/boundry/poly.gpkg -b 1 -f "GPKG" poly DN
+
+
+---------------------------GDAL command: raster ->extraction- >clip raster by mask layer
+
+gdalwarp -of GTiff -cutline /home/user/Desktop/pyqgis/slaveTile/buffer/bufferS11.gpkg -cl bufferS11 -crop_to_cutline /home/user/Desktop/Master.tif /home/user/Desktop/pyqgis/clipRmask/clipS_m11.tif
+
+gdalwarp -of GTiff -cutline /home/user/Desktop/tileM/1/buffer/bufferM11.gpkg -cl bufferM11 -crop_to_cutline /home/user/Desktop/tileM/1/Master_1_1.tif /home/user/Desktop/tileM/1/clipRmask/clipM11.tif
+
+python script in qgis
+/home/user/.local/share/QGIS/QGIS3/profiles/default/processing/scripts
+
+## Test - 1
+from qgis.core import *
+# Supply path to qgis install location
+#QgsApplication.setPrefixPath("/usr", True)
+
+# Create a reference to the QgsApplication.  Setting the
+# second argument to False disables the GUI.
+#qgs = QgsApplication([], False)
+
+# Load providers
+#qgs.initQgis()
+
+# Write your code here to load some layers, use processing
+# algorithms, etc.
+
+
+path_to_tif = "/home/bisag/Documents/demo/wspd.tif_0.tif"
+rlayer = QgsRasterLayer(path_to_tif, "SRTM layer name")
+ident = rlayer.dataProvider()
+x = str(ident)
+print(x)
+
+
+# #Finally, exitQgis() is called to remove the
+# #provider and layer registries from memory
+#qgs.exitQgis()
+
+
+
+### Test - 2
+# from qgis.core import QgsProject
+# # Get the project instance
+# project = QgsProject.instance()
+# # print(project.fileName()) # Print the current project file name (might be empty in case no projects have been loaded)
+# # Load another project
+# import os
+# print(os.getcwd())
+# project.read('/home/bisag/Documents/test.qgz')
+# print(project.fileName())
+
+### subtest .... working
+# project.write() # #Save the project to the same
+# # ## print(project.write()) ## check the status
+
+### Subtest .....working
+# ## ... or to a new file ##....working
+# project.write('/home/bisag/Documents/new_test.qgz') ### create new project using code
+# ## print(project.write('/home/bisag/Documents/new_test.qgz')) ## check the status
+#
+
+### Subtest .... not working
+# bridge = QgsLayerTreeMapCanvasBridge( \
+#          QgsProject.instance().layerTreeRoot(), canvas) ##.....NOT working
+#
+# # Now you can safely load your project and see it in the canvas
+# project.read('/home/bisag/Documents/new_test.qgz')
+#
+#
+# import os # This is is needed in the pyqgis console also
+# from qgis.core import (
+#     QgsVectorLayer,
+#     QgsProject,
+#     QgsApplication
+# )
+# # from qgis.core import *
+# # Supply path to qgis install location
+# QgsApplication.setPrefixPath("/usr", True)
+#
+# # Create a reference to the QgsApplication.  Setting the
+# # second argument to False disables the GUI.
+# qgs = QgsApplication([], False)
+#
+# # Load providers
+# qgs.initQgis()
+#
+# # Write your code here to load some layers, use processing
+# # algorithms, etc.
+#
+#
+# # get the path to the shapefile e.g. /home/project/data/ports.shp
+# path_to_world_layer = "/home/bisag/Documents/World_Countries/World_Countries.shp"
+#
+# # The format is:
+# # vlayer = QgsVectorLayer(data_source, layer_name, provider_name)
+# vlayer = QgsVectorLayer(path_to_world_layer, "World layer", "ogr")
+#
+#
+# if not vlayer.isValid():
+#     print("Layer failed to load!")
+# else:
+#     print(QgsProject.instance().addMapLayer(vlayer))
+#
+#
+# # #Finally, exitQgis() is called to remove the
+# # #provider and layer registries from memory
+# qgs.exitQgis()

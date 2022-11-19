@@ -1,0 +1,15 @@
+
+cursor.execute("CREATE TABLE IF NOT EXISTS Mobility(route text, geom text, time text)")
+cursor.execute("CREATE TABLE IF NOT EXISTS Mobility(route text, geom text, time text)")
+
+cursor.execute("CREATE TABLE IF NOT EXISTS upload (id serial PRIMARY KEY, name text, key text)")
+cursor.execute("INSERT INTO upload (name ,key) VALUES (%s, %s)",(name1, key))
+
+
+squery = "select key from upload where key in " + key 
+cursor.execute(squery)
+key = str(cursor.fetchall())
+ 
+INSERT INTO algorithm (name,parameter) VALUES ('gdal:translate', 'INPUT,DATA_TYPE,OUTPUT');
+
+UPDATE algorithm SET name = 'gdal:pansharp' WHERE id = 20;                       

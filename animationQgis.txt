@@ -1,0 +1,7 @@
+https://www.birdseyeviewgis.com/blog/2020/8/14/creating-a-covid-19-temporal-animation-with-qgis#:~:text=14%20is%20the%20Temporal%20Controller,create%20powerful%20visualizations%20and%20animations.
+https://www.gispo.fi/en/open-software/geogiffery-in-2020-with-qgis-temporal-controller/
+https://anitagraser.com/2020/05/10/timemanager-is-dead-long-live-the-temporal-controller/
+https://anitagraser.com/2020/05/24/movement-data-in-gis-30-synchronized-trajectory-animations-with-qgis-temporal-controller/
+https://anitagraser.com/2020/01/03/movement-data-in-gis-26-towards-a-template-for-exploring-movement-data/
+https://mariosmsk.com/2020/05/29/using-basemaps-with-qgis-temporal-controller/
+

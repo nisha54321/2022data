@@ -1,0 +1,2 @@
+
+https://gis.stackexchange.com/questions/26285/installing-file-geodatabase-gdb-support-in-qgis

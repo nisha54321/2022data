@@ -1,0 +1,21 @@
+ imp note and commands
+
+ while True is true -- ie always. This is an infinite loop
+
+
+remove pdadmin 
+sudo apt autoremove pgadmin4
+ at a time all dependency install in .txt file
+$ python -m pip freeze > requirements.txt
+p3 install -r requirements.txt
+
+source venv/bin/activate
+
+#accsess another pc terminal
+ssh user@192.168.1.203
+
+.(a single dot) - this represents the current directory.
+..(two dots) - this represents the parent directory. 
+
+
+POSTMAN:::::::, it’s an API development tool that provides you an interactive GUI to construct requests and responses.

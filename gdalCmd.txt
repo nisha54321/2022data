@@ -1,0 +1,17 @@
+--------for using gdal segmentation of raster file in gdal retilee command line
+-------- computer -usr-bin-qgis terminal run gdal_retile.py command
+
+gdal_retile.py -v -r bilinear -levels 1 -ps 300 250 -co "TILED=YES" -co "COMPRESS=LZW" -targetDir  /home/user/Desktop/output /home/user/Desktop/image/Master.tif
+
+
+----------------------------raster ->extraction- >clip raster by mask layer
+GDAL command:
+
+gdalwarp -of GTiff -cutline /home/user/Desktop/pyqgis/slaveTile/buffer/bufferS11.gpkg -cl bufferS11 -crop_to_cutline /home/user/Desktop/Master.tif /home/user/Desktop/pyqgis/clipRmask/hi.tif
+
+
+plugin install commands in qgis our created builder 
+sudo pip3 install pb_tool
+Run pyrcc5 -o resources.py resources.qrc
+pb_tool compile
+

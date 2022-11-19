@@ -1,0 +1,2 @@
+pyhton version: Python 3.8.10
+QGIS version 3.16.11-Hannover

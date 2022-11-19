@@ -1,0 +1,58 @@
+CREATE EXTENSION pgrouting CASCADE;
+CREATE EXTENSION postgis;
+
+SELECT * FROM pgr_dijkstra('
+SELECT gid AS id, start_id::int4 AS source, end_id::int4 AS target, 
+shape_leng::float8 AS cost FROM network',
+1, 5, false);
+
+
+
+select geom from network where gid in (46794, 46793, 46743, 46741)
+
+
+select geom from network where gid in  (36596, 36657, 36936, 36935, 36976, 36975, 36974, 36674, 36625, 36574, 36573, 35188, 35186, -1)
+
+-----------------------------
+
+@@@@@reach time source node reach
+# find geometry for
+SELECT ST_AsText('01030000000100000005000000000000000000
+000000000000000000000000000000000000000000000000
+F03F000000000000F03F000000000000F03F000000000000F03
+F000000000000000000000000000000000000000000000000');
+
+SELECT ST_AsText(GeomFromEWKT('SRID=4326;POINT(111.1111111 1.1111111)'))
+          st_astext
+select ST_AsText(geom) from network where gid in (46793 ,46743) 
+
+		output : LINESTRING (i.e geometry)
+
+--------------------------------------------------------------------------------------------
+
+# find length of geometry
+SELECT ST_Length(ST_Transform(ST_GeomFromEWKT('SRID=4326;LINESTRING(-72.1260 42.45, -72.1240 42.45666, -72.123 42.1546)'),26986));
+"SELECT ST_Length(ST_Transform(ST_GeomFromEWKT('SRID=4326;" + x1  + "'),3857));"
+
+------------------------------------------------------------------------
+###in table find geom
+select geom from network where fnode_ =" + Rsource
+
+------------------------------
+count geom
+select count(geom) from network where gid in (46793 ,46743) 
+
+------------------------------------
+
+for intersection 
+
+ output ==boolean yes or no
+SELECT ST_Intersects('POINT(0 0)'::geometry, 'LINESTRING ( 2 0, 0 2 )'::geometry);
+
+if  find which geom for intersect
+"SELECT ST_AsText(ST_Intersection('" + x11 + "'::geometry, '" + x22 + "'::geometry))" 
+ 
+
+
+
+

@@ -1,0 +1,8 @@
+spatial query:
+
+wkb:
+   array af bytes(binary data)
+##########text to geom:wkt to wkb
+select ST_GeomFromText('POINT(-126.4 45.32)')
+output :011122201010101010110111000011100
+

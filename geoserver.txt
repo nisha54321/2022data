@@ -1,0 +1,8 @@
+http://localhost:8080/geoserver/web/wicket/bookmarkable/org.geoserver.web.admin.CoverageAccessPage?6&filter=false
+
+##plugin package paste zip file
+/home/bisag/Documents/geoserver/webapps/geoserver/WEB-INF/lib
+https://www.quadratic.be/en/programmatically-interact-with-geoserver-in-python/
+https://geoserver-rest.readthedocs.io/en/latest/how_to_use.html
+###color-ramps
+https://matplotlib.org/3.3.0/tutorials/colors/colormaps.html

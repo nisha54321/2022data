@@ -1,0 +1,9 @@
+#remote 
+cd ~/.local/share/remmina/
+remmina -n
+
+
+sudo pip3 install pb_tool
+
+pb_tool compile
+

@@ -1,0 +1,7 @@
+DEM :A digital elevation model is a 3D computer graphics representation of elevation data to represent terrain, commonly of a planet, moon, or asteroid.
+	 A "global DEM" refers to a discrete global grid. DEMs are used often in geographic information systems, and are the most common basis for digitally produced relief maps.
+
+    :A Digital Elevation Model (DEM) is a specialized database that represents the relief of a surface between points of known elevation. ... GIS software can use digital elevation models for 3D surface
+ 	visualization, generating contours, and performing viewshed visibility analysis.
+	
+    :A digital elevation model (DEM) is a 3D computer graphics representation of elevation data to represent terrain, commonly of a planet (e.g. Earth), moon, or asteroid. A "global DEM" refers to a 		 discrete global grid.

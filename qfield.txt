@@ -1,0 +1,4 @@
+https://qfield.org/docs/index.html
+http://opengisch.github.io/talks/qfield-workshop/#0
+https://github.com/opengisch/QField/tree/master/resources/demo_projects
+

@@ -1,0 +1,2 @@
+scp -r /home/bisag/Documents/aster/tif/ bisag@192.168.13.51: /home/bisag/
+

@@ -1,0 +1,22 @@
+{
+   "import": {
+      "targetWorkspace": {
+         "workspace": {
+            "name": "cite"
+         }
+      },
+      "targetStore": {
+         "dataStore": {
+            "name": "shapes"
+         }
+      },
+      "data": {
+        "type": "file",
+        "file": "path.shp"
+      }
+   }
+}
+
+//This returns import ID
+POST /imports/<importId>
+

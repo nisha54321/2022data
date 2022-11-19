@@ -1,0 +1,3 @@
+https://snapcraft.io/install/qgsrepo/ubuntu 
+https://monkeybeanonline.com/how-to-install-qgsrepo-on-ubuntu-using-snap/
+http://byungdugjun.blogspot.com/2020/02/install-snap-and-qgis.html

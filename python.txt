@@ -1,0 +1,54 @@
+##virtual envirnment setup
+ 
+sudo apt-get install python3-venv
+python3 -m venv venv
+virtualenv venv
+
+source venv/bin/activate
+$deactivate
+
+ ---Create a requirements file with this command:
+touch requirements.txt
+pip freeze > requirements.txt
+
+----you can install them from this file with the following command:
+pip install -r requirements.txt
+
+
+------You’ll need to activate your virtual environment every time you work on your Python project. In the rare cases when you want to deactivate your virtualenv without closing your terminal session, just use the deactivate command.
+python -m textblob.download_corpora
+
+
+
+##command to start up the webserver in that directory
+python3 -m http.server
+python -m SimpleHTTPServer
+
+That will open a webserver on port 8080. You can then open your browser at http://127.0.0.1:8080/
+
+This is a default server that you can use to download files from the machine.
+
+#    app.run(debug=True, host='0.0.0.0')
+##Note: the host='0.0.0.0' means the web app is accessible to any device on the network.
+
+
+#subdomain add flask python
+
+127.0.0.1	localhost
+127.0.1.1	bisag-Veriton-M4665G
+
+website_url = 'bisag-Veriton-M4665G:5000'
+    app.config['SERVER_NAME'] = website_url
+    app.run()
+
+Linux: /etc/hosts 
+Windows: C:\Windows\System32\Drivers\etc\hosts
+
+#flsk rest api:post,get,delete,put method
+	return jsonify({'data': num**2})
+	##return flask response
+
+
+
+
+

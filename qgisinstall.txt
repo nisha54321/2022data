@@ -1,0 +1,8 @@
+sudo add-apt-repository "deb https://qgis.org/ubuntu-ltr $(lsb_release -c -s) main"
+sudo add-apt-repository "deb https://qgis.org/ubuntu-ltr $(lsb_release -c -s) main"
+
+$ wget -O - https://qgis.org/downloads/qgis-2017.gpg.key | gpg --import
+##install python package from this file 
+ pip3 install -r requirements.txt
+
+

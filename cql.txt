@@ -1,0 +1,40 @@
+ALTER TABLE routes ADD trip_id text;
+
+
+UPDATE public.routes set trip_id = trips.trip_id from public.trips where  trips.route_id = routes.route_id;
+UPDATE public.routes set stop_id = stop_times.stop_id from public.stop_times where routes.trip_id =stop_times.trip_id ;
+UPDATE public.routes set geom = stops.geom from public.stops where routes.stop_id =stops.stop_id ;
+
+
+
+CQL_FILTER list (CQL filters separated by ; common query language
+
+
+
+select *from public.routes cross join public.trips limit 20
+
+CREATE TABLE new_table AS TABLE existing_table;  ##same copy table
+
+SELECT count(DISTINCT trip_id) FROM stop_times; 61562
+SELECT count( trip_id) FROM stop_times; 2906059
+SELECT count( *) FROM public.routes $$1261
+
+
+CREATE TABLE route_stops_geom AS(
+SELECT *
+FROM   public.route_stops
+NATURAL JOIN public.stops);
+
+
+UPDATE public.route_stops_geom set shape_id = trips.shape_id from public.trips where  trips.trip_id = route_stops_geom.trip_id;
+
+SELECT trip_id FROM public.trips where route_id = '1639'
+
+
+###final query:
+CREATE TABLE route_trip_stops AS(SELECT * FROM   public.trips NATURAL JOIN public.stop_times);
+ALTER TABLE route_trip_stop ADD geom geometry;
+UPDATE public.route_trip_stops set geom = stops.geom from public.stops where route_trip_stops.stop_id =stops.stop_id ;
+
+ALTER TABLE IF EXISTS public.route_trip_stops ADD COLUMN shape_pt_sequence numeric;
+UPDATE public.route_trip_stops set shape_pt_sequence = shapes.shape_pt_sequence from public.shapes where route_trip_stops.shape_id =shapes.shape_id ;

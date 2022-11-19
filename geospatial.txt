@@ -1,0 +1,17 @@
+📋️ GeoTIFF:is a standard .tif or image file format that includes additional spatial (georeferencing) information embedded in the .tif file as tags. These embedded tags are called tif tags. These tags can 			include the following raster metadata:
+
+
+📋️GDAL : is a powerful and mature library for reading, writing and warping raster datasets
+
+📋️ Landsat 8 imagery program : is the latest satellite in this program, eg. 1gb size
+
+📋️Rasterio: reads and writes geospatial raster data
+
+📋️ Reprojection
+                transform to the pixels of a source image with a different coordinate reference system and transform. This process is known as reprojection.
+
+📋️UTM  :stands for “Universal Transverse Mercator”. It is a geographic coordinate system which is used to identify locations on earth in 😁️😎️METERS, as measured in the Northern Hemisphere going North and 	East from the intersection of the equator and a central meridian assigned to each of 60 longitudinal zones around the earth.
+
+📋️affine transformation🐶️ :all parallel lines in the original image will still be parallel in the output image. To find the transformation matrix, we need three points from input image and their 					corresponding locations in output image. 
+
+📋️geometry: a vector (generally a column in a dataframe) used to represent points, polygons, and other geometric shapes or locations, usually represented as well-known text (WKT)

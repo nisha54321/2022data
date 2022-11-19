@@ -1,0 +1,3 @@
+📋️Map projections - or Coordinate Reference System (CRS)
+			 file known as World file and they have extensions like .tfw or .jgw. 
+📋️Spatial queries = are core to many types of GIS analysis. Spatial queries allows you to select features in a layer by their spatial relationships (intersect, contain, touch etc.) with features from another layer. In QGIS, this functionality is available via the Select by Location and Extract by Location Processing tools.

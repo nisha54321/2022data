@@ -1,0 +1,297 @@
+CREATE EXTENSION pgrouting CASCADE;
+CREATE EXTENSION postgis;
+ALTER EXTENSION postgis UPDATE TO "2.5.0"; 
+sudo apt-get install postgis postgresql-13-mobility-scripts
+
+📋️pgr_dijkstra — Returns the shortest path(s) using Dijkstra algorithm (graph search algorithm)
+		->-1 for the last node of the path.
+📋️ cost :  is the sum of the weights of all the edges in the network
+📋️ false : undirected and reverse cost
+📋️ true : directed and reverse cost
+
+SELECT * FROM pgr_dijkstra('
+SELECT gid AS id, start_id::int4 AS source, end_id::int4 AS target, 
+shape_leng::float8 AS cost FROM network',
+1, 5, false);
+
+# pgr_dijkstra(Edges SQL, start_vid,  end_vid  [, directed])
+
+📋️##### delete row
+
+DELETE FROM river1
+WHERE id = 25;
+
+📋️##### add foregign key
+ALTER TABLE river2 
+   ADD FOREIGN KEY (id) REFERENCES river1 (id);
+
+ALTER TABLE river1 
+   ADD FOREIGN KEY (id) REFERENCES river2 (id);
+
+ALTER TABLE patient 
+   ADD FOREIGN KEY (h_id) REFERENCES hospital (h_id);
+
+📋️#####drop constraint
+ALTER TABLE EMPLOYEES DROP CONSTRAINT EMPLOYEES_PK;
+
+
+📋️##### drop primarey key constraint
+ALTER TABLE EMPLOYEES DROP PRIMARY KEY;
+
+#📋️#####create foreign key 
+CREATE TABLE track(
+  trackid     INTEGER, 
+  trackname   TEXT, 
+  trackartist INTEGER,
+  FOREIGN KEY(trackartist) REFERENCES artist(artistid)
+);
+
+#############📋️#####
+CASCADE: A "CASCADE" action propagates the delete or update operation on the parent key to each dependent child key. For an "ON DELETE CASCADE" action, this means that each row in the child table that was associated with the deleted parent row is also deleted. For an "ON UPDATE CASCADE" action, it means that the values stored in each dependent child key are modified to match the new parent key values.
+
+
+📋️projection of 3857 of multiline string----------
+  SELECT ST_AsText(ST_Transform(ST_GeomFromText('"+ res1 +"',2249),3857)) As wgs_geom;
+		where res1 = multiline string(geom)
+
+#####################load shape file in postgis
+shp2pgsql -I -s 2263 Delhi_road_28_02_2019.shp delhi_road | psql -U postgres -d project
+
+select geom from network where gid in (46794, 46793, 46743, 46741)
+
+
+select geom from network where gid in  (36596, 36657, 36936, 36935, 36976, 36975, 36974, 36674, 36625, 36574, 36573, 35188, 35186, -1)
+
+-----------------------------
+📋️WGS84 (World Geodetic System 1984):
+				      The World Geodetic System 1984 (WGS84) is a datum featuring coordinates that change with time. WGS84 is defined and maintained by the United States National 					      Geospatial-Intelligence Agency (NGA). It is consistent, to about 1cm, with the International Terrestrial Reference Frame (ITRF).
+
+📋️EPSG:4326 :WGS 84 latitude/longitude CRS is known by the identifier EPSG:4326
+📋️EPSG:3857 :WGS 84 the web mapping standard CRS is EPSG:3857.
+
+
+📋️(SRS)spatial reference system :
+
+📋️EPSG -(European Petroleum Survey Group) At the bottom of QGIS window, you will notice the label Coordinate. As you move your cursor over the map, it will show you the X and Y coordinates at that location. At the bottom-right corner you will see EPSG:4326. This is the code for the current CRS (Projection) for the project.
+
+📋️Map projections - or Coordinate Reference System (CRS)
+			 file known as World file and they have extensions like .tfw or .jgw. 
+
+📋️Spatial queries = are core to many types of GIS analysis. Spatial queries allows you to select features in a layer by their spatial relationships (intersect, contain, touch etc.) with features from another layer. In QGIS, this functionality is available via the Select by Location and Extract by Location Processing tools.
+
+
+📋️postgis : PostGIS was implemented as a PostgreSQL external extension.( SELECT PostGIS_version(); it is 3.0 version)
+	    1.PostGIS is a spatial database extender for PostgreSQL object-relational database.
+	    2.It adds support for geographic objects allowing location queries to be run in SQL.
+
+📋️ PostgreSQL: is an object-relational database management system. ...
+
+📋️ pgRouting :is an extension of PostGIS and PostgreSQL geospatial database and adds routing and other network analysis functionality.
+		 A predecessor of pgRouting – pgDijkstra, written by Sylvain Pasche from Camptocamp, was later extended by Orkney and renamed to pgRouting.
+
+📋️ (ST) - standard spatial type
+ 
+📋️ OGc - Open Geospatial Consortium
+
+
+📋️EPSG:These standard CRSs are based on those defined by the European Petroleum Search Group (EPSG) 
+
+📋️SRID  : 1. The Ewkt Format Is Not An Ogc Standard, But An Postgis Specific Format That Includes The Spatial Reference System (Srid) Identifier.
+          2.  it is unique identifier associated with a specific coordinate system, tolerance, and resolution. How the SRID is populated or what it represents can vary depending on what database you use 			to store your data.
+# find geometry for
+
+ 📋️ST_AsText  ----->            Return the Well-Known Text (WKT) representation of the geometry/geography without SRID metadata.
+📋️ST_GeomFromEWKT — Return a specified Geometry from a Extended Well-Known Text representation (EWKT)
+📋️ST_GeomFromText — Return a geometric object given its Well-known text Representation.
+
+SELECT ST_GeomFromText('LINESTRING(-71.160281 42.258729,-71.160837 42.259113,-71.161144 42.25932)');
+output ----"010200000003000000E44A3D0B42CA51C06EC328081E21454027BF45274BCA51C0F67B629D2A214540957CEC2E50CA51C07099D36531214540"
+
+
+SELECT ST_AsText('01030000000100000005000000000000000000
+000000000000000000000000000000000000000000000000
+F03F000000000000F03F000000000000F03F000000000000F03
+F000000000000000000000000000000000000000000000000');
+ output :LINESTRING(-71.160281 42.258729,-71.160837 42.259113,-71.161144 42.25932)
+
+SELECT ST_AsText(GeomFromEWKT('SRID=4326;POINT(111.1111111 1.1111111)'))
+          
+select ST_AsText(geom) from network where gid in (46793 ,46743) 
+
+		output : LINESTRING (i.e geometry)
+
+--------------------------------------------------------------------------------------------
+
+# find length of geometry
+
+ 📋️ST_Length-------------->             Returns the 2D length of a linear geometry.
+📋️ST_GeomFromEWKT — Return a specified Geometry from a Extended Well-Known Text representation (EWKT)
+📋️ST_Transform    - Returns a new GEOMETRY with its coordinates converted to the spatial reference system identifier (SRID) used by the srid argument.
+
+SELECT ST_Length(ST_Transform(ST_GeomFromEWKT('SRID=4326;LINESTRING(-72.1260 42.45, -72.1240 42.45666, -72.123 42.1546)'),26986));
+
+"SELECT ST_Length(ST_Transform(ST_GeomFromEWKT('SRID=4326;" + x1  + "'),3857));"
+
+------------------------------------------------------
+📋️ST_LineMerge
+SELECT ST_AsText(ST_LineMerge(ST_GeomFromText('MULTILINESTRING((-29 -27,-30 -29.7,-36 -31,-45 -33),(-45 -33,-46 -32))')));
+squery = "SELECT ST_AsText(ST_LineMerge(ST_GeomFromText('" + x1 + "')))"
+------------------------------------------------------------------------
+###in table find geom
+select geom from network where fnode_ =" + Rsource
+
+------------------------------
+count geom
+select count(geom) from network where gid in (46793 ,46743) 
+
+------------------------------------
+
+for intersection 
+
+ 📋️ ST_Intersects----------------->                          Returns true if two Geometries/Geography spatially intersect in 2D (have at least one point in common).
+
+ output ==boolean yes or no
+SELECT ST_Intersects('POINT(0 0)'::geometry, 'LINESTRING ( 2 0, 0 2 )'::geometry);
+
+
+ 📋️ST_Intersection-------->            Returns a geometry representing the shared portion of geometries A and B.
+ 📋️ST_AsText  ----->            Return the Well-Known Text (WKT) representation of the geometry/geography without SRID metadata.
+ 
+if  find which geom for intersect
+"SELECT ST_AsText(ST_Intersection('" + x11 + "'::geometry, '" + x22 + "'::geometry))" 
+
+📋️convert epsg:3857 projection:
+   
+SELECT ST_AsText(ST_Transform(ST_GeomFromText('x1',2249),3857)) As wgs_geom;
+
+The main difference between them is that curl will show the output in the console. On the other hand, wget will download it into a file.
+
+📋️               GUI  Import SHP files using shp2pgsql-gui ¶
+
+sudo apt-get install postgis-gui
+shp2pgsql-gui
+
+📋️Is it possible for 2 or more PostGIS extensions to coexist?
+CREATE EXTENSION postgis VERSION "2.5.0";
+drop extension PostGIS;
+ALTER EXTENSION postgis UPDATE TO '2.5.5';
+
+
+sudo apt install postgis postgresql-13-postgis-2.5
+
+###mobilyty db
+sudo apt install build-essential cmake postgresql-server-dev-13 liblwgeom-dev libproj-dev libjson-c-dev
+
+
+sudo apt-get install postgresql-13 postgresql-server-dev-12 postgresql-13-postgis
+
+CREATE EXTENSION MobilityDB CASCADE;
+doxygen Doxyfile
+
+
+psql -d brussels -f brussels_preparedata.sql
+psql -d brussels -f berlinmod_datagenerator_batch.sql
+psql -d brussels -c 'select berlinmod_generate(scaleFactor := 0.005)'
+
+###in python
+    pip3 install python-mobilitydb
+
+Database adapters to access MobilityDB from Python are also available
+
+MobilityDB-python supports both the psycopg2 and the asyncpg adapters for PostgreSQL and uses the postgis adapter for PostGIS. This package is developed by the MobilityDB Team.
+MobilityDB SQLAlchemy is another independent package that provides extensions to SQLAlchemy for interacting with MobilityDB.
+
+wget -O mobilitydb-1.0.tar.gz https://github.com/MobilityDB/MobilityDB/archive/v1.0.tar.gz
+
+git checkout -t -b v1.0 origin/v1.0
+
+
+git checkout -b v1.0 --track origin/v1.0
+git pull origin v1.0
+cat .git/refs/head/v1.0
+sudo apt-get install mobilitydb postgresql-13.1-mobilitydb-scripts
+
+
+
+#geoserver
+#jdk install 
+  sudo apt-get install openjdk-8-jre
+
+The default username : admin and password : geoserver
+
+cd Downloads/geoserver-2.18.1-bin/bin
+$sh startup.sh
+browser link ---http://localhost:8080/geoserver/web/
+
+📋️ pgadmin browser link
+  http://127.0.0.1:41449/browser/
+node new version:::
+sudo npm install -g npm
+
+cesium app 
+Allow CORS: Access-Control-Allow-Origin
+
+wget http://postgis.net/stuff/postgis-2.5.0dev.tar.gz
+
+-- If you are upgrading from PostGIS 2.5 or later:
+SELECT postgis_extensions_upgrade();
+
+
+-- If you are upgrading from an earlier verison
+ALTER EXTENSION postgis UPDATE TO '2.5.5';
+
+GeoJSON supports the following geometry types: Point, LineString, Polygon, MultiPoint, MultiLineString, and MultiPolygon. Geometric objects with additional properties are Feature objects. Sets of features are contained by FeatureCollection objects.
+
+ts          |          tstz
+---------------------+------------------------
+ 2016-06-22 19:10:25 | 2016-06-22 22:10:25-04
+
+@@@@@@@@@@@@@@@@@@@@@@@time controller expression for animation data (Label)
+
+format_date(@map_start_time, 'yyyy-MM-dd  hh:mm:ss')
+
+[%format_date(@map_start_time, 'yyyy-MM-dd  hh:mm:ss ')%]  
+[%format_date(@map_start_time, 'yyyy-MM-dd  hh:mm:ss')%]
+
+hour(@map_start_time - datetime")
+
+(@map_start_time - to_datetime(to_string( "datetime" )+'Z') )
+
+@@@@@@@@@@@@@@@@@@@@@@@     expression = """<img src="file:///[%Img_path%]" width="350" height="250">"""
+
+#####tomporal controller plugin information
+📋️ STEP: value in the dock is basically frame duration: how big of a piece of the data each frame should show. Adjust this accordingly based on your dataset. Because with the train data we are working with only a single attribute, it makes sense to make the Step value in your animation to match your event duration or make it a bit more. Also take note that having a very small step value and a long time frame leads to a huge pile of frames. So getting these values just right (no blank frames, no overlapping frames, not too many output frames etc.) takes a bit of tweaking. 
+
+The time how long each frame takes to load (and later the export) depends on your machine performance, file format and the settings you have chosen. If you are working with a large file and updates between frames take a long time, you might want to speed up your process and build an index for your column with the timestamp. You can do this by going to the Processing menu and selecting the “Add attribute index” tool. I have made a feature request to have this option inside the Temporal Controller. Also please use more efficient file formats with bigger files (e.g. PostGIS or GeoPackage instead of CSV or GeoJSON).
+
+So now it’s mostly just styling. Try for example using expressions (e.g. symbol size based on the speed value for a bubbling effect) and categorize the train color by train id. You might end up with something like this:
+
+📋️ projection 3857::
+			SELECT ST_AsText(ST_Transform(ST_SetSRID(geom,4326),3857)) As spere_merc FROM public.network where gid in " + str1
+
+#task
+1.animatecsv folder remove 
+2.decoration label add
+3.style of csv animate layer
+
+📋️ogr :vector type (OGR supports (GeoPackage, Shapefile, GeoJSON, KML and others).)
+
+📋️The Geography Markup Language (GML) is the XML grammar defined by the Open Geospatial Consortium (OGC) to express geographical features. GML serves as a modeling language for geographic systems as well as an open interchange format for geographic transactions on the Internet. Key to GML's utility is its ability to integrate all forms of geographic information, including not only conventional "vector" or discrete objects, but coverages (see also GMLJP2) and sensor data.
+
+📋️image open in .py file
+python color_detection.py -i <add your image path here>
+
+if remote access is not window os then
+#remote 
+cd ~/.local/share/remmina/
+remmina -n
+
+remmina -n
+
+
+####extract by location 
+###intersection between multilinestring countour narmada and any line
+SELECT ST_AsText(build.geom) FROM public."Narmada_Contour" AS build, 
+(SELECT geom FROM public."line") AS poly 
+WHERE ST_Intersects(build.geom, poly.geom);
+

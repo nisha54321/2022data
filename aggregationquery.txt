@@ -1,0 +1,4 @@
+create table platoons as SELECT cl_no as id, st_centroid(ST_Collect(geom)) AS geom, array_agg(id) AS sid FROM(select * from (SELECT id, ST_ClusterDBSCAN(geom,60, 3) over () AS cl_no, geom FROM sections) a where cl_no is not null) b GROUP BY cl_no;
+
+create table compnies as SELECT cl_no as id, st_centroid(ST_Collect(geom)) AS geom, array_agg(id) AS pid FROM(select * from (SELECT id, ST_ClusterDBSCAN(geom, 30, 3) over () AS cl_no, geom FROM platoons) a where cl_no is not null) b GROUP BY cl_no;
+create table battalians as SELECT cl_no as id, st_centroid(ST_Collect(geom)) AS geom, array_agg(id) AS cid FROM(select * from (SELECT id, ST_ClusterDBSCAN(geom, 30, 3) over () AS cl_no, geom FROM compnies) a where cl_no is not null) b GROUP BY cl_no;

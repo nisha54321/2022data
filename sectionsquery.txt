@@ -1,0 +1,12 @@
+http://www.danbaston.com/posts/2016/06/02/dbscan-clustering-in-postgis.html
+SELECT id,st_clusterdbscan(geom,60,3) over () from sections 
+
+SELECT st_centroid(ST_Collect(geom)) AS geom, array_agg(ids) AS ids FROM (SELECT ids, ST_ClusterDBSCAN(geom, 1000, 2) over () AS cid, geom FROM platoons) sq GROUP BY cid
+
+
+
+SELECT  cluster_id FROM (SELECT   ST_ClusterDBSCAN(geom, 60, 3) OVER () AS cluster_id FROM sections) sq WHERE cluster_id  is not NULL
+
+
+SELECT * FROM (SELECT id, ST_ClusterDBSCAN(geom, 60,3) OVER () AS cluster_id, ST_AsText(geom) FROM sections) sq WHERE cluster_id IS NOT NULL;
+select ST_AsText(geom) from network where gid= " + str(edge1)
